@@ -429,13 +429,13 @@ export default function Index() {
                     <p className="font-oswald text-base font-semibold">{r.name}</p>
                     <p className="text-white/40 text-sm font-golos">{r.role}</p>
                   </div>
-                  <div className="ml-auto flex gap-0.5 text-orange-400">
-                    {[...Array(r.stars)].map((_, i) => (
-                      <span key={i}>★</span>
-                    ))}
-                  </div>
                 </div>
-                <p className="text-white/70 font-golos leading-relaxed text-sm">«{r.text}»</p>
+                <p className="text-white/70 font-golos leading-relaxed text-sm mb-4">«{r.text}»</p>
+                <div className="flex gap-0.5 text-orange-400">
+                  {[...Array(r.stars)].map((_, i) => (
+                    <span key={i}>★</span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
