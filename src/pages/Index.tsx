@@ -49,13 +49,6 @@ const SERVICES = [
     price: "от 2 000 ₽",
     accent: "#14b8a6",
   },
-  {
-    icon: "Mic",
-    title: "Живое исполнение",
-    desc: "Приедем и исполним вживую — незабываемый сюрприз для близких.",
-    price: "от 10 000 ₽",
-    accent: "#ef4444",
-  },
 ];
 
 const EXAMPLES = [
