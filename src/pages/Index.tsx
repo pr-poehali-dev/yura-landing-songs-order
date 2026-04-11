@@ -513,19 +513,22 @@ export default function Index() {
             </form>
           )}
 
-          <div className="mt-12 grid grid-cols-3 gap-4 text-center">
+          <div className="mt-12 flex flex-col gap-4">
             {[
               { icon: "Phone", label: "+7 (999) 123-45-67", sub: "Звонки и WhatsApp" },
               { icon: "Mail", label: "hello@melodiyanya.ru", sub: "Email" },
               { icon: "MessageCircle", label: "@melodiyanya", sub: "Telegram" },
             ].map((c) => (
-              <div key={c.label} className="rounded-xl p-4 neon-border"
+              <div key={c.label} className="rounded-xl p-4 neon-border flex items-center gap-4"
                 style={{ background: "rgba(255,255,255,0.03)" }}>
-                <div className="flex justify-center mb-2">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: "rgba(192,38,211,0.15)", border: "1px solid rgba(192,38,211,0.3)" }}>
                   <Icon name={c.icon as "Phone"} size={20} style={{ color: "#c026d3" }} fallback="Phone" />
                 </div>
-                <p className="text-white text-xs font-golos font-semibold leading-tight">{c.label}</p>
-                <p className="text-white/40 text-xs font-golos mt-1">{c.sub}</p>
+                <div>
+                  <p className="text-white text-sm font-golos font-semibold">{c.label}</p>
+                  <p className="text-white/40 text-xs font-golos mt-0.5">{c.sub}</p>
+                </div>
               </div>
             ))}
           </div>
