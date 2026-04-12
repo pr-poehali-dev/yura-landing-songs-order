@@ -583,11 +583,13 @@ export default function Index() {
 
           <div className="mt-12 flex flex-col gap-4">
             {[
-              { icon: "Phone", label: "+7 (993) 758-24-67", sub: "Звонки и WhatsApp" },
-              { icon: "Mail", label: "melodiyadnya@icloud.com", sub: "Email" },
-              { icon: "MessageCircle", label: "@melodiyanya", sub: "Telegram" },
+              { icon: "Phone", label: "+7 (993) 758-24-67", sub: "Звонки и WhatsApp", href: "tel:+79937582467" },
+              { icon: "Mail", label: "melodiyadnya@icloud.com", sub: "Email", href: "mailto:melodiyadnya@icloud.com" },
+              { icon: "MessageCircle", label: "Telegram", sub: "Написать в Telegram", href: "https://t.me/+_zRGYhdqo945MTli" },
+              { icon: "Zap", label: "МАХ", sub: "Написать в МАХ", href: "https://max.ru/join/AFJgTokIx_lmRnDO3CHwqglGeAuwzE9Al8S0Nz30LV4" },
             ].map((c) => (
-              <div key={c.label} className="rounded-xl p-4 neon-border flex items-center gap-4"
+              <a key={c.label} href={c.href} target="_blank" rel="noopener noreferrer"
+                className="rounded-xl p-4 neon-border flex items-center gap-4 transition-all hover:scale-[1.02]"
                 style={{ background: "rgba(255,255,255,0.03)" }}>
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{ background: "rgba(192,38,211,0.15)", border: "1px solid rgba(192,38,211,0.3)" }}>
@@ -597,7 +599,7 @@ export default function Index() {
                   <p className="text-white text-sm font-golos font-semibold">{c.label}</p>
                   <p className="text-white/40 text-xs font-golos mt-0.5">{c.sub}</p>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
