@@ -513,6 +513,9 @@ export default function Index() {
               Заказать <span className="gradient-text">песню</span>
             </h2>
             <p className="text-white/50 font-golos">Расскажите о поводе — мы свяжемся в течение 15 минут</p>
+            <a href="tel:+79937582467" className="inline-block mt-3 font-oswald text-xl font-bold gradient-text hover:opacity-80 transition-opacity">
+              +7 (993) 758-24-67
+            </a>
           </div>
 
           {formSent ? (
@@ -547,7 +550,7 @@ export default function Index() {
                 <input required
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="+7 (999) 123-45-67"
+                  placeholder="+7 (993) 758-24-67"
                   className="w-full px-4 py-3 rounded-xl text-white text-sm font-golos outline-none placeholder:text-white/25 border border-white/10 focus:border-purple-500/50 transition-colors"
                   style={{ background: "rgba(255,255,255,0.05)" }} />
               </div>
