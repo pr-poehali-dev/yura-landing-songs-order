@@ -168,11 +168,43 @@ function ChatWidget() {
   );
 }
 
+const GET_TRACKS_URL = "https://functions.poehali.dev/5042adab-d965-4a30-96ef-b5a6c428e7e2";
+
+interface Track {
+  id: number;
+  title: string;
+  description: string;
+  genre: string;
+  duration: string;
+  file_url: string;
+}
+
 export default function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [playingId, setPlayingId] = useState<number | null>(null);
   const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
   const [formSent, setFormSent] = useState(false);
+  const [tracks, setTracks] = useState<Track[]>([]);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    fetch(GET_TRACKS_URL)
+      .then((r) => r.json())
+      .then((d) => setTracks(d.tracks || []));
+  }, []);
+
+  const handlePlay = (id: number, url: string) => {
+    if (playingId === id) {
+      audioRef.current?.pause();
+      setPlayingId(null);
+    } else {
+      if (audioRef.current) audioRef.current.pause();
+      audioRef.current = new Audio(url);
+      audioRef.current.play();
+      audioRef.current.onended = () => setPlayingId(null);
+      setPlayingId(id);
+    }
+  };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -356,43 +388,70 @@ export default function Index() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {EXAMPLES.map((ex, i) => (
-              <div key={ex.title}
-                className="card-hover rounded-2xl p-6 flex items-center gap-4 neon-border"
-                style={{ background: "rgba(255,255,255,0.04)" }}>
-                <button
-                  onClick={() => setPlayingId(playingId === i ? null : i)}
-                  className="w-14 h-14 rounded-full flex-shrink-0 flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: playingId === i ? "linear-gradient(135deg, #f97316, #ef4444)" : "linear-gradient(135deg, #c026d3, #f97316)" }}>
-                  <Icon name={playingId === i ? "Pause" : "Play"} size={20} className="text-white" />
-                </button>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-oswald text-lg font-semibold truncate">{ex.title}</h3>
-                  <p className="text-white/50 text-sm font-golos truncate">{ex.desc}</p>
-                  <div className="mt-2 flex gap-2">
-                    <span className="text-xs px-2 py-0.5 rounded-full font-golos"
-                      style={{ background: "rgba(192,38,211,0.2)", color: "#e879f9" }}>
-                      {ex.genre}
-                    </span>
-                    <span className="text-xs text-white/30 font-golos">{ex.duration}</span>
+          {tracks.length === 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {EXAMPLES.map((ex) => (
+                <div key={ex.title}
+                  className="card-hover rounded-2xl p-6 flex items-center gap-4 neon-border"
+                  style={{ background: "rgba(255,255,255,0.04)" }}>
+                  <div className="w-14 h-14 rounded-full flex-shrink-0 flex items-center justify-center"
+                    style={{ background: "rgba(192,38,211,0.15)", border: "1px solid rgba(192,38,211,0.3)" }}>
+                    <Icon name="Music2" size={20} style={{ color: "#c026d3" }} />
                   </div>
-                  {playingId === i && (
-                    <div className="mt-2 flex items-end gap-0.5 h-5">
-                      {[...Array(20)].map((_, j) => (
-                        <div key={j} className="w-1 rounded-full animate-pulse"
-                          style={{
-                            height: `${(j % 5 + 1) * 4}px`,
-                            background: "linear-gradient(to top, #c026d3, #f97316)",
-                            animationDelay: `${j * 0.08}s`,
-                          }} />
-                      ))}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-oswald text-lg font-semibold truncate">{ex.title}</h3>
+                    <p className="text-white/50 text-sm font-golos truncate">{ex.desc}</p>
+                    <div className="mt-2 flex gap-2">
+                      <span className="text-xs px-2 py-0.5 rounded-full font-golos"
+                        style={{ background: "rgba(192,38,211,0.2)", color: "#e879f9" }}>
+                        {ex.genre}
+                      </span>
+                      <span className="text-xs text-white/30 font-golos">{ex.duration}</span>
                     </div>
-                  )}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {tracks.map((t) => (
+                <div key={t.id}
+                  className="card-hover rounded-2xl p-6 flex items-center gap-4 neon-border"
+                  style={{ background: "rgba(255,255,255,0.04)" }}>
+                  <button
+                    onClick={() => handlePlay(t.id, t.file_url)}
+                    className="w-14 h-14 rounded-full flex-shrink-0 flex items-center justify-center transition-all hover:scale-110"
+                    style={{ background: playingId === t.id ? "linear-gradient(135deg, #f97316, #ef4444)" : "linear-gradient(135deg, #c026d3, #f97316)" }}>
+                    <Icon name={playingId === t.id ? "Pause" : "Play"} size={20} className="text-white" />
+                  </button>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-oswald text-lg font-semibold truncate">{t.title}</h3>
+                    <p className="text-white/50 text-sm font-golos truncate">{t.description}</p>
+                    <div className="mt-2 flex gap-2">
+                      {t.genre && (
+                        <span className="text-xs px-2 py-0.5 rounded-full font-golos"
+                          style={{ background: "rgba(192,38,211,0.2)", color: "#e879f9" }}>
+                          {t.genre}
+                        </span>
+                      )}
+                    </div>
+                    {playingId === t.id && (
+                      <div className="mt-2 flex items-end gap-0.5 h-5">
+                        {[...Array(20)].map((_, j) => (
+                          <div key={j} className="w-1 rounded-full animate-pulse"
+                            style={{
+                              height: `${(j % 5 + 1) * 4}px`,
+                              background: "linear-gradient(to top, #c026d3, #f97316)",
+                              animationDelay: `${j * 0.08}s`,
+                            }} />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="mt-12 flex justify-center">
             <img src={COUPLE_IMAGE} alt="Счастливые клиенты"
