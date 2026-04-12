@@ -235,11 +235,17 @@ export default function Index() {
           ))}
         </div>
 
-        <a href="#contacts"
-          className="hidden md:flex items-center gap-2 px-5 py-2 rounded-full text-white text-sm font-semibold transition-all hover:scale-105"
-          style={{ background: "linear-gradient(135deg, #c026d3, #f97316)" }}>
-          Заказать песню
-        </a>
+        <div className="hidden md:flex items-center gap-4">
+          <a href="tel:+79937582467" className="flex items-center gap-1.5 text-white/70 hover:text-white text-sm font-golos transition-colors">
+            <Icon name="Phone" size={14} style={{ color: "#c026d3" }} />
+            +7 (993) 758-24-67
+          </a>
+          <a href="#contacts"
+            className="flex items-center gap-2 px-5 py-2 rounded-full text-white text-sm font-semibold transition-all hover:scale-105"
+            style={{ background: "linear-gradient(135deg, #c026d3, #f97316)" }}>
+            Заказать песню
+          </a>
+        </div>
 
         <button className="md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
           <Icon name={menuOpen ? "X" : "Menu"} size={24} />
@@ -577,7 +583,7 @@ export default function Index() {
 
           <div className="mt-12 flex flex-col gap-4">
             {[
-              { icon: "Phone", label: "+7 (999) 123-45-67", sub: "Звонки и WhatsApp" },
+              { icon: "Phone", label: "+7 (993) 758-24-67", sub: "Звонки и WhatsApp" },
               { icon: "Mail", label: "hello@melodiyanya.ru", sub: "Email" },
               { icon: "MessageCircle", label: "@melodiyanya", sub: "Telegram" },
             ].map((c) => (
@@ -607,6 +613,10 @@ export default function Index() {
             </div>
             <span className="font-oswald text-base font-bold gradient-text">МелодияДня</span>
           </div>
+          <a href="tel:+79937582467" className="text-white/40 hover:text-white/70 text-sm font-golos transition-colors flex items-center gap-1.5">
+            <Icon name="Phone" size={13} />
+            +7 (993) 758-24-67
+          </a>
           <p className="text-white/30 text-sm font-golos">© 2024 МелодияДня. Все права защищены</p>
           <div className="flex gap-6">
             {NAV_LINKS.map((l) => (
