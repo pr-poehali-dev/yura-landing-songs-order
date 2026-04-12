@@ -584,7 +584,7 @@ export default function Index() {
           <div className="mt-12 flex flex-col gap-4">
             {[
               { icon: "Phone", label: "+7 (993) 758-24-67", sub: "Звонки и WhatsApp" },
-              { icon: "Mail", label: "hello@melodiyanya.ru", sub: "Email" },
+              { icon: "Mail", label: "melodiyadnya@icloud.com", sub: "Email" },
               { icon: "MessageCircle", label: "@melodiyanya", sub: "Telegram" },
             ].map((c) => (
               <div key={c.label} className="rounded-xl p-4 neon-border flex items-center gap-4"
