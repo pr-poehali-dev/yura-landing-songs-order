@@ -1,4 +1,5 @@
 {
+  "send-order": "https://functions.poehali.dev/10d8fcfe-36d0-4d06-a637-390ae2a71229",
   "upload-track": "https://functions.poehali.dev/e901110b-3ff0-4bea-b3b5-878f800f2d1e",
   "get-tracks": "https://functions.poehali.dev/5042adab-d965-4a30-96ef-b5a6c428e7e2"
 }

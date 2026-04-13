@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
+const SEND_ORDER_URL = "https://functions.poehali.dev/10d8fcfe-36d0-4d06-a637-390ae2a71229";
+
 const NAV_LINKS = [
   { label: "Главная", href: "#home" },
   { label: "Услуги", href: "#services" },
@@ -19,11 +21,27 @@ const CONTACT_ITEMS = [
 export default function ContactsSection() {
   const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
   const [formSent, setFormSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSent(true);
-    setFormData({ name: "", phone: "", message: "" });
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(SEND_ORDER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error("Ошибка отправки");
+      setFormSent(true);
+      setFormData({ name: "", phone: "", message: "" });
+    } catch {
+      setError("Не удалось отправить заявку. Попробуйте ещё раз или напишите нам напрямую.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -90,10 +108,13 @@ export default function ContactsSection() {
                   className="w-full px-4 py-3 rounded-xl text-white text-sm font-golos outline-none placeholder:text-white/25 resize-none border border-white/10 focus:border-purple-500/50 transition-colors"
                   style={{ background: "rgba(255,255,255,0.05)" }} />
               </div>
-              <button type="submit"
-                className="w-full py-4 rounded-xl text-white font-semibold text-lg transition-all hover:scale-[1.02]"
+              {error && (
+                <p className="text-red-400 text-sm font-golos text-center">{error}</p>
+              )}
+              <button type="submit" disabled={loading}
+                className="w-full py-4 rounded-xl text-white font-semibold text-lg transition-all hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                 style={{ background: "linear-gradient(135deg, #c026d3, #f97316)", boxShadow: "0 0 30px rgba(192,38,211,0.3)" }}>
-                Отправить заявку
+                {loading ? "Отправляем..." : "Отправить заявку"}
               </button>
               <p className="text-center text-white/30 text-xs font-golos">
                 Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
