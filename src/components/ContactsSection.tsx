@@ -13,7 +13,7 @@ const NAV_LINKS = [
 
 const CONTACT_ITEMS = [
   { icon: "Phone", label: "+7 (993) 758-24-67", sub: "Звонки и WhatsApp", href: "tel:+79937582467" },
-  { icon: "Mail", label: "melodiyadnya@internet.ru", sub: "Email", href: "mailto:melodiyadnya@internet.ru" },
+  { icon: "Mail", label: "melodiyadnya@bk.ru", sub: "Email", href: "mailto:melodiyadnya@bk.ru" },
   { icon: "MessageCircle", label: "Telegram", sub: "Написать в Telegram", href: "https://t.me/+_zRGYhdqo945MTli" },
   { icon: "Zap", label: "МАХ", sub: "Написать в МАХ", href: "https://max.ru/join/AFJgTokIx_lmRnDO3CHwqglGeAuwzE9Al8S0Nz30LV4" },
 ];
