@@ -16,13 +16,29 @@ export default function Navbar() {
     <>
       <nav className="fixed top-0 left-0 right-0 z-40 px-6 py-4 flex items-center justify-between"
         style={{ background: "rgba(10,10,20,0.85)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(192,38,211,0.15)" }}>
-        <a href="#home" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-            style={{ background: "linear-gradient(135deg, #c026d3, #f97316)" }}>
-            <Icon name="Music" size={16} className="text-white" />
+        <div className="flex items-center gap-3">
+          <a href="#home" className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center"
+              style={{ background: "linear-gradient(135deg, #c026d3, #f97316)" }}>
+              <Icon name="Music" size={16} className="text-white" />
+            </div>
+            <span className="font-oswald text-xl font-bold gradient-text">МелодияДня</span>
+          </a>
+          <div className="flex items-center gap-2 ml-2">
+            <a href="#contacts" title="Telegram" className="w-7 h-7 rounded-full flex items-center justify-center transition-all hover:scale-110" style={{ background: "rgba(192,38,211,0.15)", border: "1px solid rgba(192,38,211,0.3)" }}>
+              <Icon name="Send" size={13} style={{ color: "#c026d3" }} />
+            </a>
+            <a href="#contacts" title="MAX" className="w-7 h-7 rounded-full flex items-center justify-center transition-all hover:scale-110" style={{ background: "rgba(192,38,211,0.15)", border: "1px solid rgba(192,38,211,0.3)" }}>
+              <Icon name="Zap" size={13} style={{ color: "#c026d3" }} />
+            </a>
+            <a href="#contacts" title="Почта" className="w-7 h-7 rounded-full flex items-center justify-center transition-all hover:scale-110" style={{ background: "rgba(192,38,211,0.15)", border: "1px solid rgba(192,38,211,0.3)" }}>
+              <Icon name="Mail" size={13} style={{ color: "#c026d3" }} />
+            </a>
+            <a href="#contacts" title="Телефон" className="w-7 h-7 rounded-full flex items-center justify-center transition-all hover:scale-110" style={{ background: "rgba(192,38,211,0.15)", border: "1px solid rgba(192,38,211,0.3)" }}>
+              <Icon name="Phone" size={13} style={{ color: "#c026d3" }} />
+            </a>
           </div>
-          <span className="font-oswald text-xl font-bold gradient-text">МелодияДня</span>
-        </a>
+        </div>
 
         <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((l) => (
